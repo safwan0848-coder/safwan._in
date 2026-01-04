@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safwan's Mastery Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="Gemini_Generated_Image_gde4togde4togde4.png">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #64748b;
+            --success: #22c55e;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --border: #e2e8f0;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f1f5f9;
+            --border: #334155;
+            --primary: #60a5fa;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        #sidebar {
+            width: 280px;
+            height: 100vh;
+            position: fixed;
+            background: var(--card-bg);
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .main-content {
+            margin-left: 280px;
+            padding: 40px;
+        }
+
+        .nav-link {
+            color: var(--secondary);
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 4px 15px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: var(--primary);
+            color: white !important;
+        }
+
+        .category-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 30px;
+        }
+
+        .topic-pill {
+            display: inline-flex;
+            align-items: center;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin: 5px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.85rem;
+        }
+
+        .topic-pill:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .topic-pill input {
+            margin-right: 10px;
+        }
+
+        .section-title {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .tutorial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .video-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .video-card img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+        }
+
+        .video-info { padding: 15px; }
+
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 2000;
+        }
+
+        .search-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 20px;
+            width: 100%;
+            margin-bottom: 30px;
+            color: var(--text);
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 15px;
+            color: var(--text);
+        }
+
+        .ai-btn {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border: none;
+            color: white;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        @media (max-width: 992px) {
+            #sidebar { width: 80px; }
+            #sidebar span { display: none; }
+            .main-content { margin-left: 80px; }
+        }
+    </style>
+</head>
+<body data-theme="light">
+
+<div id="sidebar">
+    <div class="p-4 border-bottom mb-3">
+        <!-- Name updated to Safwan's Mastery Hub -->
+        <h5 class="fw-bold m-0"><i class="fas fa-graduation-cap text-primary"></i> <a href="https://safwan0848-coder.github.io/portfoloio-saafwan/"><span>Safwan._in</span></a></h5>
+    </div>
+    <div class="nav flex-column">
+        <div class="nav-link active" onclick="showSection('tutorials')"><i class="fas fa-play"></i> <span>Tutorials</span></div>
+        <div class="nav-link" onclick="showSection('htmlcss')"><i class="fab fa-html5"></i> <span>HTML & CSS</span></div>
+        <div class="nav-link" onclick="showSection('jsdom')"><i class="fab fa-js"></i> <span>JS & DOM</span></div>
+        <div class="nav-link" onclick="showSection('bootstrap')"><i class="fab fa-bootstrap"></i> <span>Bootstrap</span></div>
+        <div class="nav-link" onclick="showSection('unix')"><i class="fab fa-linux"></i> <span>Unix/Linux</span></div>
+        <div class="nav-link" onclick="showSection('python')"><i class="fab fa-python"></i> <span>Python Core</span></div>
+        <div class="nav-link" onclick="showSection('django')"><i class="fas fa-code"></i> <span>Django</span></div>
+        <div class="nav-link" onclick="showSection('sql')"><i class="fas fa-database"></i> <span>SQL & ORM</span></div>
+    </div>
+</div>
+
+<div class="main-content">
+    <input type="text" class="search-box" id="globalSearch" placeholder="Search topics (e.g. ACID, Normalization, CTE)..." onkeyup="searchTopics()">
+
+    <div id="content-area">
+        <!-- Content injected via JS -->
+    </div>
+</div>
+
+<div class="theme-toggle" onclick="toggleTheme()">
+    <i class="fas fa-moon" id="themeIcon"></i>
+</div>
+
+<!-- Learn Modal -->
+<div class="modal fade" id="learnModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-4">
+            <h4 id="modalTopic" class="fw-bold mb-3">Topic Title</h4>
+            <p class="text-muted small">Select an AI tool to generate a comprehensive study guide, examples, and interview prep.</p>
+            <button class="ai-btn" style="background: #1a73e8" onclick="askAI('gemini')"><i class="fas fa-sparkles"></i> Gemini</button>
+            <button class="ai-btn" style="background: #10a37f" onclick="askAI('chatgpt')"><i class="fas fa-bolt"></i> ChatGPT</button>
+            <button class="ai-btn" style="background: #DB4437" onclick="askAI('google')"><i class="fab fa-google"></i> Google Search</button>
+        </div>
+    </div>
+    
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const curriculum = {
+    tutorials: [
+        { title: "Unix/Linux Masterclass", url: "https://youtu.be/eafVBUh5-pQ", thumb: "https://img.youtube.com/vi/eafVBUh5-pQ/mqdefault.jpg" },
+        { title: "Linux for Beginners", url: "https://youtu.be/_Wt70Ud6reY", thumb: "https://img.youtube.com/vi/_Wt70Ud6reY/mqdefault.jpg" },
+        { title: "Full Python Roadmap", url: "https://youtu.be/el4xStcVf3I", thumb: "https://img.youtube.com/vi/el4xStcVf3I/mqdefault.jpg" },
+        { title: "Database Systems (SQL)", url: "https://youtu.be/cnzka7kF5Zk", thumb: "https://img.youtube.com/vi/cnzka7kF5Zk/mqdefault.jpg" },
+        { title: "Django Mastery Course", url: "https://youtu.be/EsBqIZmR2Uc", thumb: "https://img.youtube.com/vi/EsBqIZmR2Uc/mqdefault.jpg" }
+    ],
+    htmlcss: [
+        { category: "Structure & Metadata", topics: ["DOCTYPE Declaration", "Attributes", "HTML vs XML vs HTML5", "Meta Tags", "Favicon", "Author & Description Meta", "h1 vs Title", "Open Graph Data (OPG Protocol)", "Entity References"] },
+        { category: "HTML Elements", topics: ["Links (a tag) & Types of Links", "Self-closing Tags", "Semantic Tags (Samples)", "Formatting Elements (em vs i, b vs strong)", "Lists (Ordered, Unordered, Description)", "Tables & Old Table Models", "Images & Figure Tag", "White Space Handling", "Global Attributes", "Block-level vs Inline Elements", "Span vs Div", "Forms", "iFrames vs Embeds", "HTML Entities"] },
+        { category: "CSS Core", topics: ["CSS Selectors & Combinators", "CSS Box Model", "CSS Text Formatting", "2D & 3D Transformations", "CSS Specificity", "Overflow vs Visibility", "CSS Flexbox vs Grid", "Units (px, em, rem, vh, vw)", "Display Property", "Pseudo-classes vs Pseudo-elements", "Gradients (Linear & Radial)", "Media Queries", "z-index & Stacking Order", "CSS Variables", "Margin, Padding, Border & Outline", "Position (Static, Relative, Absolute, Fixed, Sticky)", "RGBA (Alpha channel)", "Hue()", "CSS Comments", "Nesting"] }
+    ],
+    jsdom: [
+        { category: "JavaScript Fundamentals", topics: ["Data Types (Primitive vs Object)", "Var vs Let vs Const (Hoisting/Scope)", "String Concatenation & Template Literals", "Array Methods (Push, Pop, Map, Filter, Reduce)", "Functions & Arrow Functions", "Higher-Order Functions", "Null vs Undefined", "Loops (for, for...in, for...of)", "Synchronous & Single-threaded nature", "ES6 Features", "AJAX", "Regex (Regular Expressions)"] },
+        { category: "DOM & BOM", topics: ["DOM vs BOM", "Offset (offsetTop, offsetLeft)", "Async & Defer Scripts", "InnerText vs InnerHTML", "Event Handlers vs Listeners", "Event Propagation (Bubbling/Capturing)", "classList.add()", "Form Validation", "Tooltip Implementation", "Accessibility Features"] }
+    ],
+    bootstrap: [
+        { category: "Grid & Layout", topics: ["Bootstrap Container vs Container-Fluid", "12-Column Grid System", "Rows & Columns", "Breakpoints (xs, sm, md, lg, xl, xxl)", "Spacing Utilities (m-*, p-*)", "Responsive Visibility (d-none, d-block)"] },
+        { category: "Components", topics: ["Bootstrap Modals", "Breadcrumbs", "Accordions", "Cards", "Navbars", "Buttons & Styles", "Form-control & Form-group", "Jumbotron", "Carousels", "Utility Classes (text-center, bg-primary)"] },
+        { category: "Framework Knowledge", topics: ["Bootstrap 4 vs 5 (jQuery removal)", "Customization (SASS vs CSS)", "Responsive Design Logic", "Including via CDN vs local"] }
+    ],
+    unix: [
+        { category: "System Architecture", topics: ["Role of Unix Kernel", "Directory Tree (/bin, /etc, /home, /var)", "Inodes & Threads", "Zombie Processes", "Shell Purpose (Bash vs Sh)"] },
+        { category: "Commands & Operations", topics: ["PWD & CD", "ls (Listing files)", "Redirection (> vs >>)", "ps aux vs ps -ef", "kill vs kill -9", "Forceful Termination", "Change Ownership (chown)", "Change Permissions (chmod)", "Grep search", "Finding files (>100MB example)", "Switch User (su/sudo)", "whoami"] },
+        { category: "Environment", topics: ["Environment Variables", "Virtual Environments (venv creation/activation)", "PIP & Dependency Management", "Background Processes (bg)", "FTP & Vim basics", "PID management & htop"] }
+    ],
+    python: [
+        { category: "Foundations", topics: ["Syntax & Indentation", "Variables & Constants", "Type Casting", "String Methods", "CRUD on Lists, Tuples, Sets, Dicts", "Conditionals & Loops", "Scope (Local, Global, Nonlocal)", "Mutable vs Immutable", "Modules & Packages (__init__.py, __name__ == '__main__')", "Memory Management", "Type Hinting & Docstrings"] },
+        { category: "OOP Mastery", topics: ["Classes & Objects", "Constructors & Destructors", "Instance vs Class Variables/Methods", "Access Modifiers (Private, Protected, Public)", "Encapsulation, Inheritance, Polymorphism, Abstraction", "Abstract Classes (abc module)", "@property (Getter/Setter)", "Method Resolution Order (MRO)", "Diamond Problem", "Data Classes"] },
+        { category: "Functional & Advanced", topics: ["Lambda Functions", "Map, Filter, Reduce", "Closures & Decorators", "Iterators & Generators (yield)", "Comprehensions", "Exception Handling (try-except-finally)", "File I/O (r, w, a, b)", "Context Managers (with)", "Serialization (JSON/CSV)"] }
+    ],
+    django: [
+        { category: "Web & Browser Architecture", topics: ["Client-Server Architecture", "Web Browser Responsibilities", "HTML Rendering Engine", "JavaScript Engine Execution", "AJAX & why it's used", "Request-Response Cycle", "HTTP Methods (GET, POST, PUT, DELETE, PATCH)", "HTTP Headers", "HTTP Status Codes (200, 201, 301, 400, 401, 403, 404, 500)", "Cookies", "Caching & Performance", "CORS Restrictions"] },
+        { category: "Django Core Concepts", topics: ["What is Django?", "Why Developers Prefer Django", "Django's MVT Architecture", "Django Sessions", "Middleware Role & Types", "ALLOWED_HOSTS Importance", "INSTALLED_APPS Config", "WSGI vs ASGI", "Django Template Engine", "Template Inheritance (base.html)", "CSRF Protection & Token"] },
+        { category: "Development Essentials", topics: ["_pycache_", "init.py", "Django's admin.py", "django.contrib.contenttypes", "Path vs Query Parameters", "path() vs re_path()", "Django Signals", "Static Files Handling"] },
+        { category: "Security & Limitations", topics: ["Authentication vs Authorization", "@permission_required", "Django Security Features", "Django Disadvantages"] }
+    ],
+    sql: [
+        { category: "DB Foundations", topics: ["File System vs Database", "Disadvantages of File Systems", "Advantages of Databases", "What is DBMS?", "Responsibilities of DBMS", "Relational vs Non-Relational DB", "SQL vs NoSQL Differences", "Three Schema Architecture", "External Schema", "Database Scalability", "Performance Tuning"] },
+        { category: "Modeling & ERD", topics: ["ER Diagram", "Entity vs Attribute", "Primary Key vs Foreign Key", "Constraints (NOT NULL, CHECK, DEFAULT, UNIQUE)", "Relationship Types (1:1, 1:N, N:M)", "Reverse Lookup (via Foreign Key)", "Database Modeling", "Database Schema Design"] },
+        { category: "Transactions & Normalization", topics: ["What is a Transaction?", "ACID Properties (Atomicity, Consistency, Isolation, Durability)", "Commit & Rollback", "Normalization (1NF, 2NF, 3NF, BCNF)", "Denormalization Usage"] },
+        { category: "Indexing & Performance", topics: ["What is Indexing?", "Improve Performance via Indexing", "Pros & Cons of Indexing"] },
+        { category: "SQL Commands (CRUD)", topics: ["CRUD Operations", "DDL (Create, Drop, Alter)", "DML (Insert, Update, Delete)", "DQL (Select)", "DCL (Grant, Revoke)", "TCL (Commit, Rollback)", "DELETE vs TRUNCATE", "SQL Clauses & Operators"] },
+        { category: "Joins & Practical SQL", topics: ["Joins (INNER, LEFT, RIGHT, FULL, CROSS)", "WHERE with JOIN", "GROUP BY & HAVING", "ORDER BY & LIMIT", "Subqueries vs CTE", "Recursive CTE", "Set Operations (UNION, INTERSECT, EXCEPT)"] },
+        { category: "Advanced DB Objects", topics: ["Views & why they are used", "Triggers", "CASE Statement", "User-Defined Functions (UDF)", "Stored Procedures"] },
+        { category: "Integration & Security", topics: ["Python Database Connection", "ODBC", "Database Automation", "RBAC (Role-Based Access Control)"] },
+        { category: "Code Challenges", topics: ["Query: Youngest Student", "Query: Bulk Update", "Query: Complex JOIN", "Query: Subquery vs CTE", "Query: Recursive CTE", "Query: Create View", "Query: Create Trigger"] }
+    ]
+};
+
+let progress = JSON.parse(localStorage.getItem('study_progress') || '{}');
+let activeSection = 'tutorials';
+let selectedTopic = "";
+const learnModal = new bootstrap.Modal(document.getElementById('learnModal'));
+
+function toggleTheme() {
+    const isDark = document.body.getAttribute('data-theme') === 'dark';
+    document.body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    document.getElementById('themeIcon').className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+}
+
+function showSection(id) {
+    activeSection = id;
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    
+    // Corresponding nav link click
+    const links = document.querySelectorAll('.nav-link');
+    links.forEach(link => {
+        if(link.getAttribute('onclick').includes(id)) {
+            link.classList.add('active');
+        }
+    });
+    
+    render();
+}
+
+function toggleTopic(topic) {
+    progress[topic] = !progress[topic];
+    localStorage.setItem('study_progress', JSON.stringify(progress));
+    render();
+}
+
+function openTopic(topic) {
+    selectedTopic = topic;
+    document.getElementById('modalTopic').innerText = topic;
+    learnModal.show();
+}
+
+function askAI(platform) {
+    const prompt = `Act as an expert technical tutor for Safwan. Provide a comprehensive guide for the topic: "${selectedTopic}". 
+    Structure your response with:
+    1. Clear Definition & Conceptual Explanation.
+    2. Real-world Code Examples/Snippet (if applicable).
+    3. Best Practices.
+    4. 5 Common Technical Interview Questions with Answers.`;
+    
+    const encoded = encodeURIComponent(prompt);
+    let url = "";
+    if(platform === 'gemini') url = `https://gemini.google.com/app?q=${encoded}`;
+    else if(platform === 'chatgpt') url = `https://chatgpt.com/?q=${encoded}`;
+    else url = `https://www.google.com/search?q=${encoded}`;
+    
+    window.open(url, '_blank');
+}
+
+function render() {
+    const area = document.getElementById('content-area');
+    area.innerHTML = '';
+
+    if (activeSection === 'tutorials') {
+        let html = '<div class="tutorial-grid">';
+        curriculum.tutorials.forEach(v => {
+            html += `
+                <div class="video-card" onclick="window.open('${v.url}', '_blank')">
+                    <img src="${v.thumb}" alt="thumbnail">
+                    <div class="video-info">
+                        <h6 class="fw-bold m-0">${v.title}</h6>
+                    </div>
+                </div>`;
+        });
+        html += '</div>';
+        area.innerHTML = html;
+        return;
+    }
+
+    const data = curriculum[activeSection];
+    data.forEach(sec => {
+        const div = document.createElement('div');
+        div.className = 'category-card';
+        let total = sec.topics.length;
+        let done = sec.topics.filter(t => progress[t]).length;
+        
+        div.innerHTML = `
+            <div class="section-title">
+                <span>${sec.category}</span>
+                <span class="fs-6 text-muted">${Math.round((done/total)*100)}% Completed</span>
+            </div>
+            <div>
+                ${sec.topics.map(t => `
+                    <div class="topic-pill" onclick="openTopic('${t}')">
+                        <input type="checkbox" ${progress[t] ? 'checked' : ''} onclick="event.stopPropagation(); toggleTopic('${t}')">
+                        ${t}
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        area.appendChild(div);
+    });
+}
+
+function searchTopics() {
+    const query = document.getElementById('globalSearch').value.toLowerCase();
+    const pills = document.querySelectorAll('.topic-pill');
+    pills.forEach(p => {
+        const text = p.innerText.toLowerCase();
+        p.style.display = text.includes(query) ? 'inline-flex' : 'none';
+    });
+}
+
+render();
+</script>
+</body>
+</html>
